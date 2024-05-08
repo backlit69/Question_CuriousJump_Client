@@ -59,8 +59,8 @@ function Login(){
       axios.get(`${process.env.REACT_APP_API}/`)
       .then(result => {
         console.log(result)
-        if(result.data.Success){
-          console.log("one login , navigating to question")
+        if(result.data.success){
+          console.log("on login , navigating to question")
           navigate('/question')
         }
           

@@ -23,12 +23,12 @@ function Question() {
     axios.get(`${process.env.REACT_APP_API}/`)
     .then(result => {
       console.log(result.data)
-      if(result.data.Success)
+      if(result.data.success)
       {
 
       }
       else{
-        console.log("one question , navigating to login"+ result.data.Success)
+        console.log("on question , navigating to login "+ result.data.success)
         navigate('/')
       }
     })
