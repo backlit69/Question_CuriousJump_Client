@@ -38,7 +38,7 @@ function Login(){
           
                 //   });
                   navigate("/question");
-                  localStorage.setItem('auth',JSON.stringify(res.data));
+                  localStorage.setItem('auth',res.data.auth);
           } else {
                 toast.error("not logged in")
           }
@@ -56,7 +56,10 @@ function Login(){
 
 
     useEffect(() => {
-      axios.get(`${process.env.REACT_APP_API}/`)
+      const auth = localStorage.getItem("auth");
+      console.log(auth)
+      if(auth !== null)
+      axios.post(`${process.env.REACT_APP_API}/auth`,{auth})
       .then(result => {
         console.log(result.data)
         if(result.data.success){

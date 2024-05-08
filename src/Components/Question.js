@@ -20,19 +20,12 @@ function Question() {
   const [correctAnswer, setCorrectAnswer] = useState('');
   const navigate=useNavigate();
   axios.defaults.withCredentials = true;
-  var delete_cookie = function(name) {
-    console.log("delete cookie called");
-    document.cookie = name + '=; Path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-};
-  const handleLogout = async() => {
+
+  const handleLogout = async(e) => {
     console.log("logout pressed")
-  //  e.preventDefault();
+    e.preventDefault();
     console.log(Cookies)
-    delete_cookie("auth");
-    axios.post(`${process.env.REACT_APP_API}/logout`)
-    .then(res =>{
-      console.log(res)
-    })
+    localStorage.removeItem("auth")
     toast.success("Logged out successfully");
     navigate("/");   
   };
@@ -40,17 +33,18 @@ function Question() {
 
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API}/`)
+    const auth = localStorage.getItem("auth");
+    if(auth !== null)
+    axios.post(`${process.env.REACT_APP_API}/auth`,{
+      auth
+    })
     .then(result => {
       console.log(result.data)
-      if(result.data.success)
-      {
-
-      }
-      else{
-        console.log("on question , navigating to login "+ result.data.success)
+      if(!result.data.success){
+        console.log("on question going to login")
         navigate('/')
       }
+      
     })
     .catch(err=>console.log(err));
   },[])
