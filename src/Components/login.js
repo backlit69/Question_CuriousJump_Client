@@ -58,7 +58,7 @@ function Login(){
     useEffect(() => {
       axios.get(`${process.env.REACT_APP_API}/`)
       .then(result => {
-        console.log(result)
+        console.log(result.data)
         if(result.data.success){
           console.log("on login , navigating to question")
           navigate('/question')
