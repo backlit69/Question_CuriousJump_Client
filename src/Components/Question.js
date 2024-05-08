@@ -3,6 +3,7 @@ import Logout from './logout';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const animals = ['Cat','Dinosaur','Frog','Hippo','Hyena','Leopard','Monkey','Starfish','Turtle','Zebra'];
 const fruits = ['Apple','Banana','Black-berry','Cherry','Coconut','Green-apple','Lemon','Orange','Peach','Pear','Starfruit','Strawberry','Watermelon','']
@@ -19,6 +20,25 @@ function Question() {
   const [correctAnswer, setCorrectAnswer] = useState('');
   const navigate=useNavigate();
   axios.defaults.withCredentials = true;
+  var delete_cookie = function(name) {
+    console.log("delete cookie called");
+    document.cookie = name + '=; Path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+};
+  const handleLogout = async() => {
+    console.log("logout pressed")
+  //  e.preventDefault();
+    console.log(Cookies)
+    delete_cookie("auth");
+    axios.post(`${process.env.REACT_APP_API}/logout`)
+    .then(res =>{
+      console.log(res)
+    })
+    toast.success("Logged out successfully");
+    navigate("/");   
+  };
+
+
+
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API}/`)
     .then(result => {
@@ -87,6 +107,7 @@ function Question() {
   
         if (res && res.data.success) {
               toast.success("Added the Question");
+              eraseAll();
         } else {
               toast.error("Could not add the Question")
         }
@@ -95,9 +116,6 @@ function Question() {
           console.log(error);
           
       }
-
-
-
     console.log({
       level,
       type,
@@ -112,9 +130,21 @@ function Question() {
 
   };
 
+  const eraseAll = ()=>{
+    const value = "";
+    setLevel(value);
+    setType(value);
+    setQuestion(value);
+    setOption1(value);
+    setOption2(value);
+    setOption3(value);
+    setOption4(value);
+    setCorrectAnswer(value);
+  }
+
   return (
     <>
-    <Logout></Logout>
+    <button onClick={handleLogout} className='btn btn-secondary'>Logout</button>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-6">

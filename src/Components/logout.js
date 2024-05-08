@@ -6,15 +6,11 @@ import Cookies from 'js-cookie';
 
 const Logout = () => {
     const navigate=useNavigate();
-    const handleLogout = () => {
-        Cookies.remove('token');
-        toast.success("Logged out successfully");
-        navigate("/");   
-      };
+   
 
   return (
     <div>
-       <button onClick={()=>handleLogout} className='btn btn-secondary'>Logout</button>
+       
     </div>
   )
 }
