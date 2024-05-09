@@ -31,12 +31,6 @@ function Login(){
           console.log(res.data);
           if (res && res.data.success){
                 toast.success("Logged in successfully");
-                // setAuth({
-                //     ...auth,
-                //     user:res.data.user,
-                //     token:res.data.token,
-          
-                //   });
                   navigate("/question");
                   localStorage.setItem('auth',res.data.auth);
           } else {
@@ -75,13 +69,14 @@ function Login(){
     return (
        <div>
         {/* <pre>{JSON.stringify(formValues,undefined,2)}</pre> */}
-        <div class="title">Log in</div>
+        <div class="title"></div>
 
         <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-6">
           <form onSubmit={handleSubmit}>
-            <div className="form-group">0
+
+            <div className="form-group">
               <label htmlFor="username">Username:</label>
               <input 
                 class="form-control" 
@@ -94,7 +89,7 @@ function Login(){
             />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Password:</label>
               <input
                 class="form-control" 
                 type="password"
@@ -110,17 +105,6 @@ function Login(){
         </div>
       </div>
     </div>
-
-
-
-
-            
-
-            
-
-           
-    
-        {/* <Question></Question> */}
     </div>
     )
 }
