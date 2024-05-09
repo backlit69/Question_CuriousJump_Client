@@ -75,7 +75,7 @@ function Login(){
       <div className="row justify-content-center">
         <div className="col-md-6">
           <form onSubmit={handleSubmit}>
-
+          <div class="border p-4">
             <div className="form-group">
               <label htmlFor="username">Username:</label>
               <input 
@@ -101,7 +101,9 @@ function Login(){
             /> 
             </div>
             <button type="submit" class="btn btn-primary" onClick={()=>handleSubmit}>Let`s go!</button>
+            </div>
           </form>
+
         </div>
       </div>
     </div>

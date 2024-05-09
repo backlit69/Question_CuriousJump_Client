@@ -21,17 +21,6 @@ function Question() {
   const navigate=useNavigate();
   axios.defaults.withCredentials = true;
 
-  const handleLogout = async(e) => {
-    console.log("logout pressed")
-    e.preventDefault();
-    console.log(Cookies)
-    localStorage.removeItem("auth")
-    toast.success("Logged out successfully");
-    navigate("/");   
-  };
-
-
-
   useEffect(() => {
     const auth = localStorage.getItem("auth");
     if(auth !== null)
@@ -87,10 +76,10 @@ function Question() {
       try {
         const res = await axios.post(
           `${process.env.REACT_APP_API}/question`,
-            { 
+            { count : 1,
                 level,
       type,
-      question,
+      text:question,
       option1,
       option2,
       option3,
@@ -138,7 +127,7 @@ function Question() {
 
   return (
     <>
-    <button onClick={handleLogout} className='btn btn-secondary'>Logout</button>
+      <Logout></Logout>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-6">
